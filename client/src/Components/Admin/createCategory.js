@@ -1,33 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Fragment } from "react";
+import { createCategory } from "../../Action/category";
+function Createcategory({ createCategory }) {
+  //useState
+  const [name, setName] = useState("");
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  //onchange handler for category
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
 
-function createCategory() {
+  //submit form
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await createCategory({ name });
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
   return (
     <Fragment>
       <section className="hero m-4">
         <div className="container">
           <h3 className="text-center">Create category</h3>
 
-          <form action="">
+          <form action="" onSubmit={onSubmit}>
             <div className="form-group">
               <label for="exampleInputEmail1">category</label>
               <input
-                type=""
+                type="text"
                 className="form-control"
-                id="exampleInputEmail1"
-                ariadescribedby="emailHelp"
+                value={name}
+                onChange={handleChange}
                 placeholder="create category"
+                autoFocus
+                required
               />
             </div>
+            <button type="submit" className="btn btn-dark btn-block">
+              Submit
+            </button>
           </form>
         </div>
-
-        <button type="submit" className="btn btn-dark btn-block">
-          Submit
-        </button>
       </section>
     </Fragment>
   );
 }
-
-export default createCategory;
+Createcategory.propTypes = {
+  createCategory: PropTypes.func.isRequired,
+};
+export default connect(null, { createCategory })(Createcategory);

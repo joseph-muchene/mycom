@@ -1,47 +1,63 @@
 import React, { useState } from "react";
 import { Fragment } from "react";
 import { connect } from "react-redux";
+import { registeruser } from "../../Action/Auth";
 import PropTypes from "prop-types";
 import { Link, Redirect } from "react-router-dom";
-import { loginuser } from "../../Action/Auth";
-function Login({ loginuser, isAuthenticated }) {
-  //configure our form data state
+
+function Register({ registeruser, isRegistered }) {
   const [formData, setFormData] = useState({
-    email: "admin@gmail.com",
-    password: "admin",
-    token: null,
+    name: "",
+    email: "",
+    password: "",
+    success: false,
   });
-  //pull out data from our state
-  const { email, password, token } = formData;
-  //onchangeHandler
+  //onChange handler
+  const { name, email, password } = formData;
   const onchange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  //submit form
+  const errors = [];
+  //submit handle
   const onSubmit = (e) => {
     e.preventDefault();
-    loginuser({ email, password }).then((data) => {
-      console.log(data);
+
+    registeruser({ name, email, password }).then(() => {
       setFormData({
         ...formData,
+        name: "",
         email: "",
         password: "",
+        confirmPassword: "",
+        success: true,
       });
     });
   };
-  //redirect if isAuthenticated
-  if (isAuthenticated) {
-    return <Redirect to="/Admin" />;
+  //check if isRegistered
+  if (isRegistered) {
+    return <Redirect to="/login" />;
   }
+
   return (
     <Fragment>
       <div className="container m-4">
         <form onSubmit={onSubmit}>
           <div className="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input
+              name="name"
+              placeholder="Provide Name"
+              onChange={onchange}
+              type="text"
+              value={name}
+              className="form-control"
+            />
+          </div>
+          <div className="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input
-              type="email"
               name="email"
+              type="email"
               value={email}
               onChange={onchange}
               className="form-control"
@@ -49,14 +65,14 @@ function Login({ loginuser, isAuthenticated }) {
             />
           </div>
           <div className="form-group">
-            <label for="exampleInputPassword1">Your password</label>
+            <label for="exampleInputPassword1">password</label>
             <input
               type="password"
               name="password"
               value={password}
               onChange={onchange}
               className="form-control"
-              placeholder="Password"
+              placeholder="Provide Password"
             />
           </div>
 
@@ -65,18 +81,19 @@ function Login({ loginuser, isAuthenticated }) {
           </button>
         </form>
         <p className="lead mt-4">
-          Not Admin? Back to
-          <Link to="/">Homepage</Link>
+          Already have an account?
+          <Link to="/login">
+            <span> Login</span>
+          </Link>
         </p>
       </div>
     </Fragment>
   );
 }
-Login.propTypes = {
-  loginuser: PropTypes.func.isRequired,
+Register.propTypes = {
+  registeruser: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.Auth.isAuthenticated,
+  isRegistered: state.Auth.isRegistered,
 });
-
-export default connect(mapStateToProps, { loginuser })(Login);
+export default connect(mapStateToProps, { registeruser })(Register);

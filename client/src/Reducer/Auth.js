@@ -1,6 +1,8 @@
 import {
   Login_success,
   Login_Fail,
+  Register_Fail,
+  Register_success,
   User_Loaded,
   Logout,
   Auth_error,
@@ -9,6 +11,7 @@ import {
 const initialState = {
   isAuthenticated: false,
   loading: false,
+  isRegistered: false,
   user: null,
   errors: null,
 };
@@ -24,6 +27,7 @@ export default function (state = initialState, action) {
         user: payload,
       };
     case Login_success:
+      localStorage.setItem("jwt", JSON.stringify(payload));
       return {
         ...state,
         isAuthenticated: true,
@@ -37,6 +41,23 @@ export default function (state = initialState, action) {
         ...state,
         loading: true,
         isAuthenticated: false,
+        errors: payload,
+      };
+    case Register_success:
+      return {
+        ...state,
+        loading: true,
+        isAuthenticated: false,
+        isRegistered: true,
+        user: payload,
+      };
+
+    case Register_Fail:
+      return {
+        ...state,
+        loading: true,
+        isAuthenticated: false,
+        isRegistered: false,
         errors: payload,
       };
     case Logout:

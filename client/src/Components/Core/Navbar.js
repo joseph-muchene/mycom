@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
-
-function Navbar() {
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { listCategory } from "../../Action/category";
+function Navbar({ listCategory, categories }) {
+  //fetch categories
+  useEffect(() => {
+    listCategory();
+  }, [listCategory]);
+  console.log(categories);
   return (
     <Fragment>
       <nav className="navbar navbar-expand-lg navbar-dark">
@@ -11,7 +18,7 @@ function Navbar() {
             <img src="../images/3.png" className="img-thumb logo" alt="" />
           </span>
           <Link className="navbar-brand" to="#">
-            Fabricators
+            M-shop
           </Link>
           <button
             className="navbar-toggler"
@@ -30,11 +37,6 @@ function Navbar() {
               <li className="nav-item active">
                 <Link className="nav-link" to="/">
                   Home <span className="sr-only">(current)</span>
-                </Link>
-              </li>
-              <li className="nav-item active">
-                <Link className="nav-link" to="/Admin">
-                  Dashboard
                 </Link>
               </li>
 
@@ -67,23 +69,14 @@ function Navbar() {
                   Category
                 </Link>
                 <div className="dropdown-menu" aria-labelledby="dropdown07XL">
-                  <Link className="dropdown-item" to="#">
-                    Action
-                  </Link>
-                  <Link className="dropdown-item" to="#">
-                    Another action
-                  </Link>
-                  <Link className="dropdown-item" to="#">
-                    Something else here
-                  </Link>
+                  {categories && categories.length > 0
+                    ? categories.map((c) => (
+                        <Link className="dropdown-item" to="#">
+                          {c.name}
+                        </Link>
+                      ))
+                    : ""}
                 </div>
-              </li>
-              <li className="nav-item active">
-                <button className="btn btn-info">
-                  <Link to="../views/login.html" className="text-white">
-                    Login
-                  </Link>
-                </button>
               </li>
             </ul>
           </div>
@@ -92,5 +85,10 @@ function Navbar() {
     </Fragment>
   );
 }
-
-export default Navbar;
+Navbar.propTypes = {
+  listCategory: PropTypes.func.isRequired,
+};
+const mapstateToProps = (state) => ({
+  categories: state.Category.categories,
+});
+export default connect(mapstateToProps, { listCategory })(Navbar);

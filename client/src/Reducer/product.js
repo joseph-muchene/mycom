@@ -8,8 +8,8 @@ import {
 } from "../Action/type";
 
 const initialState = {
-  Products: [],
-  Product: null,
+  products: [],
+  Product: {},
   loading: true,
   error: null,
 };
@@ -20,7 +20,7 @@ export default function (state = initialState, action) {
     case create_Product:
       return {
         ...state,
-        Products: [payload, ...state.Products],
+        Products: payload,
         loading: false,
       };
 
@@ -39,13 +39,13 @@ export default function (state = initialState, action) {
     case list_Product:
       return {
         ...state,
-        Products: payload,
+        products: payload,
         errors: null,
       };
     case update_Product:
       return {
         ...state,
-        Product: payload,
+        product: payload,
         loading: false,
       };
     case product_Error:

@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { Fragment } from "react";
-
-function product() {
+import { connect } from "react-redux";
+import { getProduct } from "../../Action/product";
+import { numberWithCommas } from "../../helpers/format";
+function Product({ getProduct, match, Product }) {
+  //fetch requested product
+  useEffect(() => {
+    getProduct(match.params.id);
+  }, [match.params.id, getProduct]);
+  console.log(Product);
+  const { name, _id, description, price } = Product;
   return (
     <Fragment>
       <div className="container">
+        <h1 className="text-center display-4">{name}</h1>
         <div className="grid">
           <div className="row">
-            <div className="col-sm">
-              <img src="../images/blol.jpg" alt="" className="img-fluid" />
+            <div className="col-sm m-4">
+              <img
+                src={`http://localhost:8000/api/product/photo/${_id}`}
+                alt=""
+                className="img-fluid"
+              />
             </div>
             <div className="col-sm">
               <p className="text-center mt-5">
@@ -17,18 +31,23 @@ function product() {
                   Description{" "}
                 </p>
                 <br />
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus
-                officia corrupti dolore! Dolores rem dolore accusantium numquam
-                inventore, natus perspiciatis?
-                <h4 className="mt-4 text-info"> 2 in Stock</h4>
+                {description}
+                <h4 className="mt-4 text-info"> </h4>
               </p>
             </div>
           </div>
         </div>
-        <h1 className="text-center alert alert-info">Ksh 30000</h1>
+        <h1 className="text-center alert alert-info">
+          Ksh {numberWithCommas(parseInt(price))}
+        </h1>
       </div>
     </Fragment>
   );
 }
-
-export default product;
+Product.propTypes = {
+  getProduct: PropTypes.func.isRequired,
+};
+const mapstateToProps = (state) => ({
+  Product: state.Product.Product,
+});
+export default connect(mapstateToProps, { getProduct })(Product);

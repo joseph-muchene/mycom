@@ -75,7 +75,7 @@ exports.removeProduct = (req, res) => {
         msg: "Operation failed",
       });
     }
-    req.deletedProduct = undefined;
+    req.deletedProduct.photo = undefined;
     return res.json(deletedProduct);
   });
 };
@@ -90,9 +90,9 @@ exports.update = (req, res) => {
       });
     }
     // check for all fields
-    const { name, description, price, category } = fields;
+    const { name, description, price, category, quantity } = fields;
 
-    if (!name || !description || !price || !category) {
+    if (!name || !description || !price || !category || !quantity) {
       return res.status(400).json({
         error: "All fields are required",
       });

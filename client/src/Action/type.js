@@ -1,7 +1,7 @@
 export const Login_success = "Login_success";
 export const Login_Fail = "Login_Fail";
-export const Register_success = "Login_success";
-export const Register_Fail = "Login_Fail";
+export const Register_success = "Register_success";
+export const Register_Fail = "Register_Fail";
 export const User_Loaded = "User_Loaded";
 export const Logout = "Logout";
 export const Auth_error = "Auth_error";

@@ -20,7 +20,7 @@ exports.create = (req, res) => {
         msg: "operation error",
       });
     }
-    res.json({ data });
+    res.json(data);
   });
 };
 exports.read = (req, res) => {
@@ -54,7 +54,7 @@ exports.remove = (req, res) => {
 };
 
 exports.list = (req, res) => {
-  category.find().exec((err, data) => {
+  Category.find().exec((err, data) => {
     if (err || !data) {
       return res.status(400).json({
         msg: "Not found",
