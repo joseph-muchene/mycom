@@ -57,3 +57,12 @@ exports.requireSignin = expressJwt({
   algorithms: ["HS256"],
   userProperty: "auth", //cookie parser
 });
+
+exports.isAdmin = (req, res, next) => {
+  if (req.user.role === 0) {
+    return res.status(403).json({
+      error: "Admin resourse! Access denied",
+    });
+  }
+  next();
+};

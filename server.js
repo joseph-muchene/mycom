@@ -7,6 +7,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 //routes
 const Auth = require("./routes/auth");
+const User = require("./routes/user");
 const Product = require("./routes/product");
 const Category = require("./routes/category");
 //database connection
@@ -34,6 +35,7 @@ app.use(express.json());
 //route middlewares
 app.use("/api", Auth);
 app.use("/api", Product);
+app.use("/api", User);
 app.use("/api", Category);
 //server connection
 const PORT = process.env.PORT;

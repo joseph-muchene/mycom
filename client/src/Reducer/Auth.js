@@ -1,4 +1,10 @@
-import { Login_success, Login_Fail, User_Loaded, Logout } from "../Action/type";
+import {
+  Login_success,
+  Login_Fail,
+  User_Loaded,
+  Logout,
+  Auth_error,
+} from "../Action/type";
 
 const initialState = {
   isAuthenticated: false,
@@ -34,6 +40,13 @@ export default function (state = initialState, action) {
         errors: payload,
       };
     case Logout:
+      return {
+        ...state,
+        loading: false,
+        isAuthenticated: false,
+        errors: payload,
+      };
+    case Auth_error:
       return {
         ...state,
         loading: false,

@@ -4,6 +4,7 @@ import {
   update_Product,
   Remove_Product,
   list_Product,
+  product_Error,
 } from "../Action/type";
 
 const initialState = {
@@ -46,6 +47,13 @@ export default function (state = initialState, action) {
         ...state,
         Product: payload,
         loading: false,
+      };
+    case product_Error:
+      return {
+        ...state,
+        Product: null,
+        loading: false,
+        error: payload,
       };
     default:
       return state;

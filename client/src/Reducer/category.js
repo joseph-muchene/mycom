@@ -4,6 +4,7 @@ import {
   update_category,
   Remove_category,
   list_categories,
+  category_Error,
 } from "../Action/type";
 
 const initialState = {
@@ -48,6 +49,13 @@ export default function (state = initialState, action) {
         ...state,
         category: payload,
         loading: false,
+      };
+    case category_Error:
+      return {
+        ...state,
+        category: null,
+        loading: false,
+        errors: payload,
       };
     default:
       return state;
