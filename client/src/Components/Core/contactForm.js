@@ -45,7 +45,7 @@ function ContactForm() {
   };
   return (
     <div>
-      <section class="contact mt-4">
+      <section class="contact ">
         <div class="container">
           <h1 class="text-center text-capitalize" id="contact">
             Contact Us

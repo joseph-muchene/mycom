@@ -10,22 +10,32 @@ import {
   Logout,
   User_Loaded,
 } from "./type";
-
 export const isAuthenticated = () => {
+  //check for token
   if (typeof window === "undefined") {
-    return null;
-  } else if (localStorage.getItem("jwt")) {
+    return false;
+  }
+  if (localStorage.getItem("jwt")) {
     return JSON.parse(localStorage.getItem("jwt"));
   } else {
-    return null;
+    return false;
+  }
+};
+export const authenticate = (data, next) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("jwt", JSON.stringify(data));
+    next();
   }
 };
 //pull out user details to use in my actions
-const { user } = isAuthenticated();
-const { _id } = user;
+
 export const loadUser = () => async (dispatch) => {
+  const { data } = isAuthenticated();
+  console.log(data);
   try {
-    const res = await axios.get(`http://localhost:8000/api/user/${_id}`);
+    const res = await axios.get(
+      `http://localhost:8000/api/user/${data.user._id}`
+    );
     dispatch({
       type: User_Loaded,
       payload: res.data,
@@ -76,10 +86,14 @@ export const loginuser = (formData) => async (dispatch) => {
       body,
       config
     );
-    dispatch({
-      type: Login_success,
-      payload: res.data,
+
+    authenticate(res, () => {
+      dispatch({
+        type: Login_success,
+        payload: res.data,
+      });
     });
+    dispatch(loadUser);
   } catch (ex) {
     dispatch({
       type: Login_Fail,

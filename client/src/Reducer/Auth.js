@@ -27,7 +27,6 @@ export default function (state = initialState, action) {
         user: payload,
       };
     case Login_success:
-      localStorage.setItem("jwt", JSON.stringify(payload));
       return {
         ...state,
         isAuthenticated: true,

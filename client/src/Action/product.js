@@ -12,8 +12,8 @@ import {
   product_Error,
 } from "./type";
 //pull user data from the localstorage using isAuthenticated func
-const { token, user } = isAuthenticated();
-const { _id } = user;
+const { data } = isAuthenticated();
+
 // create product
 export const createProduct = (formData) => async (dispatch) => {
   //send token
@@ -24,12 +24,12 @@ export const createProduct = (formData) => async (dispatch) => {
     const config = {
       headers: {
         "content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${data.token}`,
       },
     };
 
     const res = await axios.post(
-      `http://localhost:8000/api/product/${_id}`,
+      `http://localhost:8000/api/product/${data.user._id}`,
       formData,
       config
     );
@@ -70,11 +70,11 @@ export const updateProduct = (formData, productId) => async (dispatch) => {
     const config = {
       headers: {
         "content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${data.token}`,
       },
     };
     const res = await axios.put(
-      `http://localhost:8000/api/product/update/${_id}/${productId}`,
+      `http://localhost:8000/api/product/update/${data.user._id}/${productId}`,
       formData,
       config
     );
@@ -97,12 +97,12 @@ export const removeProduct = (productId) => async (dispatch) => {
   // product id for the product to be deleted
   const config = {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${data.token}`,
     },
   };
   try {
     const res = await axios.delete(
-      `http://localhost:8000/api/product/remove/${_id}/${productId}`,
+      `http://localhost:8000/api/product/remove/${data.user._id}/${productId}`,
       config
     );
     dispatch({

@@ -1,8 +1,8 @@
 import React from "react";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ history }) {
   console.log(window);
   let productID = "#product";
   let contact = "#contact";
@@ -12,7 +12,7 @@ function Navbar() {
       <nav className="navbar navbar-expand-lg navbar-dark">
         <div className="container-xl">
           <Link className="navbar-brand" to="/">
-            M-shop
+            <i>Paul's Smith</i>
           </Link>
           <button
             className="navbar-toggler"
@@ -59,4 +59,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default withRouter(Navbar);

@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
-import Jumbotron from "./Core/jumbotron";
 import Products from "./Core/products";
-import Testimonials from "./Core/testimonial";
 import Contact from "./Core/contactForm";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { listProduct } from "../Action/product";
 import HomeBanner from "./Core/HomeBanner";
+import Footer from "../Components/Core/footer";
 function Home({ listProduct, products }) {
   useEffect(() => {
     listProduct();
@@ -15,8 +14,8 @@ function Home({ listProduct, products }) {
     <div>
       <HomeBanner />
       <Products items={products} />
-
       <Contact />
+      <Footer />
     </div>
   );
 }

@@ -29,7 +29,7 @@ function Product({ getProduct, match, Product }) {
               <p className="text-center mt-5">
                 <p className="badge badge-primary m-4 badge-pill p-3 lead">
                   {" "}
-                  Description{" "}
+                  Description{""}
                 </p>
                 <br />
                 {description}

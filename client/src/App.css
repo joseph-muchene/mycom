@@ -7,7 +7,7 @@
 
 body {
   font-family: "Open Sans", arial, sans-serif !important;
-  color: #494d55 !important;
+  background-color: #f4f4f4 !important;
   font-size: 14px !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
@@ -28,7 +28,7 @@ a {
   margin: 1.3rem;
   border-radius: 6px;
   border: none;
-  background-color: rgba(221, 214, 214, 0.692);
+  background-color: rgba(10, 149, 170, 0.377);
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
 }
 /* .card:hover {
@@ -46,7 +46,7 @@ a {
   border-top: 2px solid #333;
 }
 .navbar {
-  background-color: #40babd;
+  background-color: #44797a;
   color: #f4f4f4;
 }
 
@@ -80,12 +80,13 @@ a {
   padding: 5rem;
 }
 .contact {
-  margin-bottom: 7rem;
+  position: relative;
+
   box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.1);
 }
 .footer {
   padding: 2rem;
-  background-color: #40babd;
+  background-color: #44797a;
   color: #fff;
 }
 
@@ -161,7 +162,7 @@ li {
     background: url("./IMG_20201216_171859_675.jpg");
     background-size: cover;
     opacity: 1;
-    height: 20vh;
+    height: 40vh;
     width: 100%;
     background-position: center;
     position: relative;

@@ -100,7 +100,7 @@ function CreateProduct({ createProduct, listCategory, categories }) {
                 value={quantity}
                 onChange={onChange("quantity")}
                 className="form-control"
-                placeholder="Provide Description"
+                placeholder="Provide quantity"
               />
             </div>
             <div className="form-group">

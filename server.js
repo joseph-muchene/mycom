@@ -1,13 +1,13 @@
 //environment variables
 require("dotenv").config();
-const path = require("path");
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const nodemailer = require("nodemailer");
-const cors = require("cors");
+
 const morgan = require("morgan");
-const boxen = require("boxen");
+
 //routes
 const Auth = require("./routes/auth");
 const User = require("./routes/user");
@@ -15,7 +15,7 @@ const Product = require("./routes/product");
 const Category = require("./routes/category");
 //database connection
 const mongoose = require("mongoose");
-
+//
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -24,22 +24,15 @@ mongoose
     useCreateIndex: true,
   })
   .then(() => {
-    console.log(
-      boxen("MONGODB connected!!!", {
-        padding: 1,
-        borderColor: "magenta",
-        margin: 1,
-        borderStyle: "round",
-      })
-    );
+    console.log("MONGODB connected!!!");
   })
   .catch((err) => {
     console.log(err.message);
   });
 
 //middlewares
-app.use(morgan("dev"));
 app.use(cors());
+app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(express.json());
 
@@ -48,6 +41,7 @@ app.use("/api", Auth);
 app.use("/api", Product);
 app.use("/api", User);
 app.use("/api", Category);
+
 //nodemailer
 
 let transporter = nodemailer.createTransport({
@@ -70,19 +64,6 @@ transporter.verify((err, success) => {
 //server connection
 const PORT = process.env.PORT || 8000;
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("Client/build"));
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "Client", "build", "index.html"))
-  );
-}
 app.listen(PORT, () => {
-  console.log(
-    boxen(`listening on port ${PORT}`, {
-      padding: 1,
-      borderColor: "red",
-      margin: 1,
-      borderStyle: "round",
-    })
-  );
+  console.log(`listening on port ${PORT}`);
 });

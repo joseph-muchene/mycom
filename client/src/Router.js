@@ -17,7 +17,7 @@ import Product from "./Components/Core/product";
 import UpdateProduct from "./Components/Admin/updateProduct";
 import About from "./Components/Core/About";
 import ShowRelated from "./Components/Core/showRelated";
-import Footer from "./Components/Core/footer";
+
 function App() {
   useEffect(() => {
     Store.dispatch(loadUser());
@@ -47,7 +47,6 @@ function App() {
           </div>
         </Router>
       </Provider>
-      <Footer />
     </Fragment>
   );
 }

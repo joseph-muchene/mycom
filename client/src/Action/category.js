@@ -11,8 +11,8 @@ import {
   category_Error,
 } from "./type";
 //pull user data from isAuthenticated
-const { user, token } = isAuthenticated();
-const { _id } = user;
+const { data } = isAuthenticated();
+
 // create Category
 export const createCategory = (name) => async (dispatch) => {
   //send token
@@ -24,13 +24,13 @@ export const createCategory = (name) => async (dispatch) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${data.token}`,
       },
     };
     const body = JSON.stringify(name);
     console.log(body);
     const res = await axios.post(
-      `http://localhost:8000/api/create/category/${_id}`,
+      `http://localhost:8000/api/create/category/${data.user._id}`,
       body,
       config
     );
@@ -72,11 +72,11 @@ export const updateCategory = (categoryId, category) => async (dispatch) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${data.token}`,
       },
     };
     const res = await axios.put(
-      `http://localhost:8000/api/update/category/${_id}/${categoryId}`,
+      `http://localhost:8000/api/update/category/${data.user._id}/${categoryId}`,
       category,
       config
     );
@@ -99,12 +99,12 @@ export const removeCategory = (categoryId) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${data.token}`,
     },
   };
   try {
     const res = await axios.delete(
-      `http://localhost:8000/api/category/remove/${_id}/${categoryId}`,
+      `http://localhost:8000/api/category/remove/${data.user._id}/${categoryId}`,
       config
     );
     dispatch({
