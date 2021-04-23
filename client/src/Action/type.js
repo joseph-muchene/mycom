@@ -1,0 +1,14 @@
+export const Login_success = "Login_success";
+export const Login_Fail = "Login_Fail";
+export const User_Loaded = "User_Loaded";
+export const Logout = "Logout";
+export const create_Category = "create_category";
+export const Get_category = "Get_category";
+export const update_category = "update_category";
+export const Remove_category = "Remove_category";
+export const list_categories = "list_categories";
+export const create_Product = "create_Product";
+export const Get_Product = "Get_Product";
+export const update_Product = "update_Product";
+export const Remove_Product = "Remove_Product";
+export const list_Product = "list_Product";
