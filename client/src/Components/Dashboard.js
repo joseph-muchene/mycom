@@ -7,7 +7,7 @@ import ListProducts from "./Admin/listProducts";
 function Dashboard() {
   return (
     <div>
-      <Jumbotron />
+      <Jumbotron title="Admin Dashboard" description="" />
       <CreateProduct />
       <CreateCategory />
       <ListProducts />

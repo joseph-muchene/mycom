@@ -75,7 +75,7 @@ exports.removeProduct = (req, res) => {
         msg: "Operation failed",
       });
     }
-    req.deletedProduct.photo = undefined;
+    deletedProduct.photo = undefined;
     return res.json(deletedProduct);
   });
 };
@@ -118,7 +118,7 @@ exports.update = (req, res) => {
       if (err) {
         console.log("PRODUCT CREATE ERROR ", err);
         return res.status(400).json({
-          msg: "Operation failed",
+          msg: err.message,
         });
       }
       res.json(result);
@@ -138,19 +138,18 @@ exports.listCategories = (req, res) => {
 };
 
 exports.listRelated = (req, res) => {
-  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+  let limit = req.query.limit ? parseInt(req.query.limit) : 12;
+
   Product.find({ _id: { $ne: req.product }, category: req.product.category })
     .limit(limit)
     .populate("category", "_id name")
-    .select("-photo")
-    .exec((err, product) => {
+    .exec((err, products) => {
       if (err) {
         return res.status(400).json({
-          msg: "Products not found",
+          error: "Products not found",
         });
       }
-
-      res.json(product);
+      res.json(products);
     });
 };
 exports.getAllProducts = async (req, res) => {

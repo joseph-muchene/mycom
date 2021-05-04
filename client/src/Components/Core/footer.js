@@ -4,7 +4,7 @@ import { Fragment } from "react";
 function footer() {
   return (
     <Fragment>
-      <section className="footer">
+      <section className="footer mt-4">
         <div className="footer__grid">
           <ul className="socials">
             <p className="lead list-text">social</p>

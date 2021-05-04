@@ -4,12 +4,13 @@ import { Fragment } from "react";
 import { connect } from "react-redux";
 import { getProduct } from "../../Action/product";
 import { numberWithCommas } from "../../helpers/format";
+import ShowRelated from "./showRelated";
 function Product({ getProduct, match, Product }) {
   //fetch requested product
   useEffect(() => {
     getProduct(match.params.id);
   }, [match.params.id, getProduct]);
-  console.log(Product);
+
   const { name, _id, description, price } = Product;
   return (
     <Fragment>
@@ -40,6 +41,9 @@ function Product({ getProduct, match, Product }) {
         <h1 className="text-center alert alert-info">
           Ksh {numberWithCommas(parseInt(price))}
         </h1>
+      </div>
+      <div className="container">
+        <ShowRelated id={_id} />
       </div>
     </Fragment>
   );

@@ -1,6 +1,13 @@
-import React from "react";
-
-function listProducts() {
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { listProduct, removeProduct } from "../../Action/product";
+function ListProducts({ listProduct, products: { product }, removeProduct }) {
+  //FETCH PRODUCTS
+  useEffect(() => {
+    listProduct();
+  }, [listProduct]);
   return (
     <section class="products">
       <h3 class="text-center">Products</h3>
@@ -19,31 +26,47 @@ function listProducts() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Cooker</td>
-              <td class="text-break">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Maiores, necessitatibus?
-              </td>
-              <td>ksh 20000</td>
-              <td>kitchen</td>
-              <td>n/a</td>
-              <td>
-                <button class="btn btn-danger">Delete</button>
-              </td>
-              <td>
-                <button class="btn btn-secondary ">
-                  <a href="../views/update.html " class="text-white">
-                    Update
-                  </a>
-                </button>
-              </td>
-            </tr>
+            {product && product.length > 0
+              ? product.map((c) => (
+                  <tr>
+                    <td>{c.name}</td>
+                    <td class="text-break">{c.description}</td>
+                    <td>ksh {c.price}</td>
+                    <td>{c.category}</td>
+                    <td>n/a</td>
+                    <td>
+                      <button
+                        class="btn btn-danger"
+                        onClick={() => {
+                          removeProduct(c._id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                    <td>
+                      <button class="btn btn-secondary ">
+                        <Link to={`/edit/${c._id}`} class="text-white">
+                          Update
+                        </Link>
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              : null}
           </tbody>
         </table>
       </div>
     </section>
   );
 }
-
-export default listProducts;
+ListProducts.propTypes = {
+  listProduct: PropTypes.func.isRequired,
+  removeProduct: PropTypes.func.isRequired,
+};
+const mapstateToProps = (state) => ({
+  products: state.Product.products,
+});
+export default connect(mapstateToProps, { listProduct, removeProduct })(
+  ListProducts
+);

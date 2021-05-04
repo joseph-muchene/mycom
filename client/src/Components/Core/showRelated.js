@@ -1,39 +1,40 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { listProduct } from "../../Action/product";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import Pagination from "../Core/pagination";
-import { TruncateBody } from "../../helpers/truncate";
+import Footer from "../Core/footer";
+import { connect } from "react-redux";
+import { relatedProducts } from "../../Action/product";
 import { numberWithCommas } from "../../helpers/format";
-function Productss({ listProduct, products: { product }, items }) {
-  const [pageNumber, setPageNumber] = useState(0);
-  const [numberOfpages, setNumberOfpages] = useState(0);
+import { TruncateBody } from "../../helpers/truncate";
+function ShowRelated({ relatedProducts, id, products }) {
+  const [related, setRelated] = useState(false);
   useEffect(() => {
-    listProduct(pageNumber);
-  }, [listProduct, pageNumber]);
-  useEffect(() => {
-    setNumberOfpages(items.totalPages);
-  });
-  const pages = new Array(numberOfpages).fill(null).map((v, i) => i);
+    relatedProducts(id);
+  }, [id, relatedProducts]);
 
   return (
-    <Fragment>
-      <div>
-        <h1 class="text-capitalize text-center card-" id="product">
-          Our Products
-        </h1>
-        <hr />
-      </div>
-      <div className="container" id="product">
-        <div class="grid">
-          <div class="row">
-            <div className="card-columns">
-              {product && product.length > 0
-                ? product.map((c) => (
-                    <div class="col-sm">
-                      <div class="card mb-4">
-                        {JSON.stringify()}
+    <div>
+      <hr />
+      {products.length > 0 && (
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            setRelated(!related);
+          }}
+        >
+          {!related ? "show related" : "hide related"}
+        </button>
+      )}
+
+      {related ? (
+        <div className="container">
+          <div className="grid">
+            <div className="row">
+              <div className="card-columns">
+                {products.length > 0 &&
+                  products.map((c) => (
+                    <div className="card-sm">
+                      <div className="card">
                         <div class="card-title">
                           <h3 class="text-center card__header mb-4">
                             {c.name}
@@ -53,7 +54,7 @@ function Productss({ listProduct, products: { product }, items }) {
                           <img
                             src={`http://localhost:8000/api/product/photo/${c._id}`}
                             class=" img"
-                            alt=""
+                            alt="product"
                             srcset=""
                           />
                         </div>
@@ -69,29 +70,19 @@ function Productss({ listProduct, products: { product }, items }) {
                         </div>
                       </div>
                     </div>
-                  ))
-                : null}
+                  ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="container d-flex justify-content-center">
-        <Pagination
-          pages={pages}
-          posts={items}
-          setPageNumber={setPageNumber}
-          total={items.totalPages}
-          pageNumber={pageNumber}
-        />
-      </div>
-    </Fragment>
+      ) : null}
+    </div>
   );
 }
-Productss.propTypes = {
-  listProduct: PropTypes.func.isRequired,
-  products: PropTypes.object.isRequired,
+ShowRelated.propTypes = {
+  relatedProducts: PropTypes.func.isRequired,
 };
 const mapstateToProps = (state) => ({
   products: state.Product.products,
 });
-export default connect(mapstateToProps, { listProduct })(Productss);
+export default connect(mapstateToProps, { relatedProducts })(ShowRelated);

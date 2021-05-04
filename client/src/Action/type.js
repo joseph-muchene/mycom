@@ -17,3 +17,4 @@ export const Remove_Product = "Remove_Product";
 export const list_Product = "list_Product";
 export const product_Error = "product_Error";
 export const category_Error = "category_Error";
+export const show_Related = "show_Related";

@@ -5,6 +5,7 @@ import {
   Remove_Product,
   list_Product,
   product_Error,
+  show_Related,
 } from "../Action/type";
 
 const initialState = {
@@ -37,6 +38,12 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case list_Product:
+      return {
+        ...state,
+        products: payload,
+        errors: null,
+      };
+    case show_Related:
       return {
         ...state,
         products: payload,

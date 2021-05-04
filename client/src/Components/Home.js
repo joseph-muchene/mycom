@@ -1,21 +1,30 @@
-import React from "react";
-import Pagination from "./Core/pagination";
+import React, { useEffect } from "react";
 import Jumbotron from "./Core/jumbotron";
 import Products from "./Core/products";
 import Testimonials from "./Core/testimonial";
 import Contact from "./Core/contactForm";
-import Footer from "./Core/footer";
-function Home() {
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { listProduct } from "../Action/product";
+function Home({ listProduct, products }) {
+  useEffect(() => {
+    listProduct();
+  }, [listProduct]);
   return (
     <div>
       <Jumbotron />
-      <Products />
-      <Pagination />
-      <Testimonials />
+      <Products items={products} />
+
+      {/* <Testimonials /> */}
       <Contact />
-      <Footer />
     </div>
   );
 }
-
-export default Home;
+Home.propTypes = {
+  listProduct: PropTypes.func.isRequired,
+  products: PropTypes.object.isRequired,
+};
+const mapstateToProps = (state) => ({
+  products: state.Product.products,
+});
+export default connect(mapstateToProps, { listProduct })(Home);

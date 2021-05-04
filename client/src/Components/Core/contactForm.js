@@ -5,7 +5,9 @@ function contactForm() {
     <div>
       <section class="contact mt-4">
         <div class="container">
-          <h1 class="text-center text-capitalize">Contact Us</h1>
+          <h1 class="text-center text-capitalize" id="contact">
+            Contact Us
+          </h1>
           <form>
             <div class="form-group">
               <label for="exampleInputEmail1">Name</label>

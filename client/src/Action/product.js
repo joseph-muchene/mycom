@@ -8,6 +8,7 @@ import {
   update_Product,
   Remove_Product,
   list_Product,
+  show_Related,
   product_Error,
 } from "./type";
 //pull user data from the localstorage using isAuthenticated func
@@ -60,7 +61,7 @@ export const getProduct = (productId) => async (dispatch) => {
   }
 };
 // update product
-export const updateProduct = (productId, formData) => async (dispatch) => {
+export const updateProduct = (formData, productId) => async (dispatch) => {
   //send token
   //check admin role === 1
   // userId should be available to check admin role
@@ -73,9 +74,9 @@ export const updateProduct = (productId, formData) => async (dispatch) => {
       },
     };
     const res = await axios.put(
-      `http://localhost:8000/product/update/${_id}/${productId}`,
-      config,
-      formData
+      `http://localhost:8000/api/product/update/${_id}/${productId}`,
+      formData,
+      config
     );
     dispatch({
       type: update_Product,
@@ -101,7 +102,7 @@ export const removeProduct = (productId) => async (dispatch) => {
   };
   try {
     const res = await axios.delete(
-      `http://localhost:8000/product/remove/${_id}/${productId}`,
+      `http://localhost:8000/api/product/remove/${_id}/${productId}`,
       config
     );
     dispatch({
@@ -111,14 +112,16 @@ export const removeProduct = (productId) => async (dispatch) => {
   } catch (ex) {
     dispatch({
       type: product_Error,
-      payload: ex.response.data.msg,
+      // payload: ex.response.data.msg,
     });
   }
 };
 // list product
-export const listProduct = () => async (dispatch) => {
+export const listProduct = (pageNumber) => async (dispatch) => {
   try {
-    const res = await axios.get("http://localhost:8000/api/products");
+    const res = await axios.get(
+      `http://localhost:8000/api/products?page=${pageNumber}`
+    );
     dispatch({
       type: list_Product,
       payload: res.data,
@@ -127,5 +130,19 @@ export const listProduct = () => async (dispatch) => {
     dispatch({
       type: product_Error,
     });
+  }
+};
+//SHOW RELATED PRODUCTS
+export const relatedProducts = (productId) => async (dispatch) => {
+  try {
+    const res = await axios.get(
+      `http://localhost:8000/api/product/related/${productId}`
+    );
+    dispatch({
+      type: show_Related,
+      payload: res.data,
+    });
+  } catch (ex) {
+    console.log(ex);
   }
 };

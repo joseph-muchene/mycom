@@ -1,23 +1,14 @@
 import React, { useEffect } from "react";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { listCategory } from "../../Action/category";
-function Navbar({ listCategory, categories }) {
-  //fetch categories
-  useEffect(() => {
-    listCategory();
-  }, [listCategory]);
-  console.log(categories);
+
+function Navbar() {
+  console.log(window.location.pathname);
   return (
     <Fragment>
       <nav className="navbar navbar-expand-lg navbar-dark">
         <div className="container-xl">
-          <span>
-            <img src="../images/3.png" className="img-thumb logo" alt="" />
-          </span>
-          <Link className="navbar-brand" to="#">
+          <Link className="navbar-brand" to="/">
             M-shop
           </Link>
           <button
@@ -41,42 +32,21 @@ function Navbar({ listCategory, categories }) {
               </li>
 
               <li className="nav-item active">
-                <Link className="nav-link" to="../views/dashboard.html">
+                <a className="nav-link" href="#contact">
                   Contact
-                </Link>
+                </a>
               </li>
 
               <li className="nav-item active">
-                <Link className="nav-link" to="../views/dashboard.html">
+                <a className="nav-link" href="#product">
                   Products
-                </Link>
+                </a>
               </li>
 
               <li className="nav-item active">
-                <Link className="nav-link " to="../views/dashboard.html">
+                <Link className="nav-link " to="/About">
                   About
                 </Link>
-              </li>
-
-              <li className="nav-item dropdown active mr-4">
-                <Link
-                  className="nav-link dropdown-toggle"
-                  to="#"
-                  id="dropdown07XL"
-                  data-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Category
-                </Link>
-                <div className="dropdown-menu" aria-labelledby="dropdown07XL">
-                  {categories && categories.length > 0
-                    ? categories.map((c) => (
-                        <Link className="dropdown-item" to="#">
-                          {c.name}
-                        </Link>
-                      ))
-                    : ""}
-                </div>
               </li>
             </ul>
           </div>
@@ -85,10 +55,5 @@ function Navbar({ listCategory, categories }) {
     </Fragment>
   );
 }
-Navbar.propTypes = {
-  listCategory: PropTypes.func.isRequired,
-};
-const mapstateToProps = (state) => ({
-  categories: state.Category.categories,
-});
-export default connect(mapstateToProps, { listCategory })(Navbar);
+
+export default Navbar;
