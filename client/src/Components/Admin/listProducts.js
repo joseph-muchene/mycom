@@ -13,7 +13,7 @@ function ListProducts({ listProduct, products: { product }, removeProduct }) {
       <h3 class="text-center">Products</h3>
       <hr />
       <div class="container">
-        <table class="table text-center mt-5 table-striped table-reflow">
+        <table class="table text-center mt-5 table-striped table-responsive">
           <thead class="thead-dark">
             <tr>
               <th>Name</th>
@@ -33,7 +33,14 @@ function ListProducts({ listProduct, products: { product }, removeProduct }) {
                     <td class="text-break">{c.description}</td>
                     <td>ksh {c.price}</td>
                     <td>{c.category}</td>
-                    <td>n/a</td>
+                    <td>
+                      <img
+                        src={`http://localhost:8000/api/product/photo/${c._id}`}
+                        alt="product"
+                        srcset=""
+                        className="img-fluid"
+                      />
+                    </td>
                     <td>
                       <button
                         class="btn btn-danger"

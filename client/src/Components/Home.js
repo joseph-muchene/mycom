@@ -6,16 +6,16 @@ import Contact from "./Core/contactForm";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { listProduct } from "../Action/product";
+import HomeBanner from "./Core/HomeBanner";
 function Home({ listProduct, products }) {
   useEffect(() => {
     listProduct();
   }, [listProduct]);
   return (
     <div>
-      <Jumbotron />
+      <HomeBanner />
       <Products items={products} />
 
-      {/* <Testimonials /> */}
       <Contact />
     </div>
   );

@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
-  console.log(window.location.pathname);
+  console.log(window);
+  let productID = "#product";
+  let contact = "#contact";
+
   return (
     <Fragment>
       <nav className="navbar navbar-expand-lg navbar-dark">
@@ -32,13 +35,13 @@ function Navbar() {
               </li>
 
               <li className="nav-item active">
-                <a className="nav-link" href="#contact">
+                <a className="nav-link" href={`${contact}`}>
                   Contact
                 </a>
               </li>
 
               <li className="nav-item active">
-                <a className="nav-link" href="#product">
+                <a className="nav-link" href={`${productID}`}>
                   Products
                 </a>
               </li>

@@ -1,10 +1,8 @@
 import React from "react";
 import Auth from "./User/login";
-import Jumbotron from "./Core/jumbotron";
 function Login() {
   return (
-    <div>
-      <Jumbotron />
+    <div className="container">
       <Auth />
     </div>
   );

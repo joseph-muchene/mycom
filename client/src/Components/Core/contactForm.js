@@ -1,6 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 
-function contactForm() {
+function ContactForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [success, setSuccess] = useState("");
+  //onchange handler
+  //onChange handler
+  const { name, email, message } = formData;
+  const onchange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  //submit handler
+  const submitEmail = async (e) => {
+    e.preventDefault();
+    console.log({ formData });
+    const response = await fetch("http://localhost:8000/api/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ formData }),
+    })
+      .then((res) => res.json())
+      .then(async (res) => {
+        const resData = await res;
+        console.log(resData);
+        if (resData.status === "success") {
+          setSuccess("Message sent");
+        } else if (resData.status === "fail") {
+          setSuccess("Message failed to send");
+        }
+      })
+      .then(() => {
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
+      });
+  };
   return (
     <div>
       <section class="contact mt-4">
@@ -8,13 +50,20 @@ function contactForm() {
           <h1 class="text-center text-capitalize" id="contact">
             Contact Us
           </h1>
-          <form>
+          {success && (
+            <div className="container bg-success">
+              <h3 className="text-center p-2 ">{success}</h3>
+            </div>
+          )}
+          <form onSubmit={submitEmail}>
             <div class="form-group">
               <label for="exampleInputEmail1">Name</label>
               <input
-                type="email"
+                type="text"
                 class="form-control"
-                id="exampleInputEmail1"
+                name="name"
+                onChange={onchange}
+                value={name}
                 ariadescribedby="emailHelp"
                 placeholder="Provide Name"
               />
@@ -24,8 +73,9 @@ function contactForm() {
               <input
                 type="email"
                 class="form-control"
-                id="exampleInputEmail1"
-                ariadescribedby="emailHelp"
+                name="email"
+                onChange={onchange}
+                value={email}
                 placeholder="Provide email"
               />
             </div>
@@ -33,10 +83,11 @@ function contactForm() {
             <div class="form-group">
               <label for="exampleInputEmail1">Message</label>
               <input
-                type="email"
+                type="text"
                 class="form-control"
-                id="exampleInputEmail1"
-                ariadescribedby="emailHelp"
+                name="message"
+                onChange={onchange}
+                value={message}
                 placeholder="Provide Message"
               />
             </div>
@@ -51,4 +102,4 @@ function contactForm() {
   );
 }
 
-export default contactForm;
+export default ContactForm;

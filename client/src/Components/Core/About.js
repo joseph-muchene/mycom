@@ -1,20 +1,20 @@
-import React, { Fragment } from "react";
-import Footer from "../Core/footer";
+import React from "react";
+import { Fragment } from "react";
 import Jumbotron from "../Core/jumbotron";
 function About() {
   return (
     <Fragment>
       <div>
         <Jumbotron title="About Us" description="" />
-        <div className="container ">
-          <h1 className="text-center display-3">Who Are We</h1>
-          <p className="lead ">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Reprehenderit maxime molestiae molestias cum delectus unde magnam
-            dolor atque? Quis architecto accusantium aspernatur eum rem nisi
-            dolorum, quasi et molestiae aliquam.
-          </p>
-        </div>
+      </div>
+      <div className="container">
+        <p className="lead ">
+          We are a small engineering company specialising in machine works and
+          fabrication with experience of more than 10 years. We bring ideas of
+          our clients to life powered by the experience of our engineers
+          ,lifespan and also quality of our product which cannot be compared to
+          any product with similar use.
+        </p>
       </div>
     </Fragment>
   );

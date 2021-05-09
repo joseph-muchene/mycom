@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
+const nodemailer = require("nodemailer");
 const cors = require("cors");
 const morgan = require("morgan");
 const boxen = require("boxen");
@@ -48,7 +49,31 @@ app.use("/api", User);
 app.use("/api", Category);
 //server connection
 const PORT = process.env.PORT;
+//nodemailer
 
+let transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    type: "OAuth2",
+    user: process.env.EMAIL,
+    pass: process.env.WORD,
+    clientId: process.env.OAUTH_CLIENTID,
+    clientSecret: process.env.OAUTH_CLIENT_SECRET,
+    refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+  },
+});
+transporter.verify((err, success) => {
+  err
+    ? console.log(err)
+    : console.log(`=== Server is ready to take messages:${success} ===`);
+});
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+  );
+}
 app.listen(PORT, () => {
   console.log(
     boxen(`listening on port ${PORT}`, {

@@ -20,9 +20,6 @@ function Productss({ listProduct, products: { product }, items }) {
   return (
     <Fragment>
       <div>
-        <h1 class="text-capitalize text-center card-" id="product">
-          Our Products
-        </h1>
         <hr />
       </div>
       <div className="container" id="product">
@@ -65,6 +62,10 @@ function Productss({ listProduct, products: { product }, items }) {
                                 Ksh {numberWithCommas(parseInt(c.price))}
                               </span>
                             </h4>
+                            <h5>
+                              product:
+                              <span className="text-danger">{c.quantity}</span>
+                            </h5>
                           </p>
                         </div>
                       </div>

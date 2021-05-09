@@ -145,3 +145,27 @@ li {
 .footer__sm {
   margin-top: 6rem;
 }
+.Banner {
+  background: url("./Awesome\ Maserati\ Logo\ 3d.jpg");
+  background-size: cover;
+  opacity: 1;
+  height: 30vh;
+  width: 100%;
+  background-position: center;
+  position: relative;
+  margin-bottom: 1rem;
+  background-repeat: no-repeat;
+}
+@media (max-width: 640px) {
+  .Banner {
+    background: url("./IMG_20201216_171859_675.jpg");
+    background-size: cover;
+    opacity: 1;
+    height: 20vh;
+    width: 100%;
+    background-position: center;
+    position: relative;
+    margin-bottom: 1rem;
+    background-repeat: no-repeat;
+  }
+}
