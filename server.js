@@ -1,5 +1,6 @@
 //environment variables
 require("dotenv").config();
+const path = require("path");
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
@@ -14,7 +15,7 @@ const Product = require("./routes/product");
 const Category = require("./routes/category");
 //database connection
 const mongoose = require("mongoose");
-const { red } = require("color-name");
+
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -47,8 +48,6 @@ app.use("/api", Auth);
 app.use("/api", Product);
 app.use("/api", User);
 app.use("/api", Category);
-//server connection
-const PORT = process.env.PORT;
 //nodemailer
 
 let transporter = nodemailer.createTransport({
@@ -68,10 +67,13 @@ transporter.verify((err, success) => {
     : console.log(`=== Server is ready to take messages:${success} ===`);
 });
 
+//server connection
+const PORT = process.env.PORT || 8000;
+
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+  app.use(express.static("Client/build"));
   app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+    res.sendFile(path.resolve(__dirname, "Client", "build", "index.html"))
   );
 }
 app.listen(PORT, () => {
