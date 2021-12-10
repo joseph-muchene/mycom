@@ -1,7 +1,7 @@
 import React from "react";
 import { Fragment } from "react";
 
-function jumbotron({
+function Jumbotron({
   title = "Welcome To M-SHOP",
   description = "ORDER NOW TO GET 50% DISCOUNT",
 }) {
@@ -17,4 +17,4 @@ function jumbotron({
   );
 }
 
-export default jumbotron;
+export default Jumbotron;

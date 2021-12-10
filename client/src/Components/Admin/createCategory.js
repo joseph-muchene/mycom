@@ -6,8 +6,7 @@ import { createCategory } from "../../Action/category";
 function Createcategory({ createCategory }) {
   //useState
   const [name, setName] = useState("");
-  const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
+
   //onchange handler for category
   const handleChange = (e) => {
     setName(e.target.value);

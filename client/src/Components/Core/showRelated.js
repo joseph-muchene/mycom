@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import Footer from "../Core/footer";
 import { connect } from "react-redux";
 import { relatedProducts } from "../../Action/product";
 import { numberWithCommas } from "../../helpers/format";

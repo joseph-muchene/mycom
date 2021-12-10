@@ -1,7 +1,7 @@
 import React from "react";
 import { Fragment } from "react";
 
-function footer() {
+function Footer() {
   return (
     <Fragment>
       <section className="footer mt-4">
@@ -33,4 +33,4 @@ function footer() {
   );
 }
 
-export default footer;
+export default Footer;

@@ -7,7 +7,7 @@ function UpdateProduct({ updateProduct, getProduct, match, Product }) {
   //fetch requested product with id
   useEffect(() => {
     getProduct(match.params.id);
-  }, [getProduct, match.params._id]);
+  }, [getProduct, match.params.id]);
 
   //consfigure useState hook
   const [formData, setFormData] = useState({

@@ -14,7 +14,7 @@ function Productss({ listProduct, products: { product }, items }) {
   }, [listProduct, pageNumber]);
   useEffect(() => {
     setNumberOfpages(items.totalPages);
-  });
+  }, []);
   const pages = new Array(numberOfpages).fill(null).map((v, i) => i);
 
   return (

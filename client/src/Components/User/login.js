@@ -12,7 +12,7 @@ function Login({ loginuser, isAuthenticated }) {
     token: null,
   });
   //pull out data from our state
-  const { email, password, token } = formData;
+  const { email, password } = formData;
   //onchangeHandler
   const onchange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

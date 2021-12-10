@@ -1,6 +1,6 @@
 import React from "react";
 
-function testimonial() {
+function Testimonial() {
   return (
     <div>
       <section class="testimonials">
@@ -73,4 +73,4 @@ function testimonial() {
   );
 }
 
-export default testimonial;
+export default Testimonial;

@@ -1,6 +1,6 @@
 import React from "react";
 import Auth from "./User/register";
-function Login() {
+function Register() {
   return (
     <div className="container">
       <Auth />
@@ -8,4 +8,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

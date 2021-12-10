@@ -17,7 +17,7 @@ function Register({ registeruser, isRegistered }) {
   const onchange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const errors = [];
+
   //submit handle
   const onSubmit = (e) => {
     e.preventDefault();
